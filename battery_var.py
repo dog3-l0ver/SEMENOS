@@ -6,7 +6,7 @@ class BatteryVar:
         # Battery parameters
         self.capacity = 2600  # mAh
         self.voltage = 3.7  # V
-        self.resistance = 0.002  # Ohm
+        self.resistance = 0.02  # Ohm
 
         # Discharge parameters
         self.current = 2000  # Ah
