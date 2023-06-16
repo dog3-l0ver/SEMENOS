@@ -5,16 +5,20 @@ class BatteryVar:
     def __init__(self):
         # Battery parameters
         self.capacity = 2600  # mAh
+        self.remainingpower = 2600  # mAh
         self.voltage = 3.7  # V
         self.resistance = 0.02  # Ohm
 
         # Discharge parameters
-        self.current = 2000  # Ah
+        self.current = 2500  # Ah
         self.dt = 1  # s
 
     # Getters
     def getcapacity(self):
         return self.capacity
+
+    def getremainingpower(self):
+        return self.remainingpower
 
     def getvoltage(self):
         return self.voltage
@@ -31,6 +35,9 @@ class BatteryVar:
     # Setters
     def setcapacity(self, capacity):
         self.capacity = capacity
+
+    def setremainingpower(self, remainingpower):
+        self.remainingpower = remainingpower
 
     def setvoltage(self, voltage):
         self.voltage = voltage
