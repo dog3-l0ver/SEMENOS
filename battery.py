@@ -8,7 +8,7 @@ class Battery:
         self.time = 0
 
     def simulation(self):
-        while self.bat.getcapacity() > 0:
+        while self.bat.getremainingpower() > 0:
             # Calculate the voltage across the battery
             v = self.bat.getcurrent() * self.bat.getresistance()
 
@@ -16,10 +16,10 @@ class Battery:
             energy = self.bat.getresistance() * self.bat.getcurrent() * v / 3600
 
             # Update the remaining capacity of the battery
-            self.bat.setcapacity(self.bat.getcapacity() - energy)
+            self.bat.setremainingpower(self.bat.getremainingpower() - energy)
 
             # Update the time
             self.time += self.bat.getdt()
 
             # Print the remaining capacity and time
-            print("Time: {:.1f} min, Capacity: {:.1f} mAh".format((self.time / 60), self.bat.getcapacity()))
+            print("Capacity: {:.0f}%".format((self.bat.getremainingpower() / self.bat.getcapacity()) * 100))
