@@ -13,7 +13,7 @@ class Battery:
             v = self.bat.getcurrent() * self.bat.getresistance()
 
             # Calculate the energy discharged in this time step
-            energy = self.bat.getresistance() * self.bat.getcurrent() * v / 36000
+            energy = self.bat.getresistance() * self.bat.getcurrent() * v / 3600
 
             # Update the remaining capacity of the battery
             self.bat.setcapacity(self.bat.getcapacity() - energy)
