@@ -1,12 +1,14 @@
 from battery import *
-from battery_var import *
+from db import *
+import datetime
 
 
 class Controller:
 
     def __init__(self):
         self.battery = Battery()
-        self.battery_var = BatteryVar()
+        self.db = DataBase()
+        self.firstRun = [datetime.datetime.today(), datetime.datetime.now().strftime("%H:%M:%S")]
 
-    def threadmanagement(self):
+    def thread_management(self):
         self.battery.simulation()
