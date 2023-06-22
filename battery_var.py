@@ -50,3 +50,9 @@ class BatteryVar:
 
     def setdt(self, dt):
         self.dt = dt
+
+    def is_fire(self, isFire, curr):
+        if isFire:
+            self.setcurrent(500 + curr)
+        else:
+            self.setcurrent(500)
