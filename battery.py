@@ -14,10 +14,12 @@ class Battery:
         data = []
         while self.bat.getremainingpower() > 0:
             # Calculate the voltage across the battery
-            v = self.bat.getcurrent() * self.bat.getresistance()
+            self.bat.setvoltage(self.bat.get_base_voltage() * ((self.bat.getremainingpower() + (5 * self.bat.getcapacity())) / (self.bat.getcapacity() * 6)))
+            print(self.bat.getvoltage())
 
             # Calculate the energy discharged in this time step
-            energy = self.bat.getresistance() * self.bat.getcurrent() * v / 3600
+            energy = self.bat.getresistance() * self.bat.getcurrent() * self.bat.getvoltage() / 3600
+            print(energy)
 
             # Update the remaining capacity of the battery
             self.bat.setremainingpower(self.bat.getremainingpower() - energy)
@@ -33,10 +35,7 @@ class Battery:
             data.append(remainingpower)
 
             # Print the remaining capacity and time
-            print("Capacity: {:.0f}%, Time: {:.1f} min, Timestamp: {ftstamp}".format(data[i][0], data[i][1],
-                                                                                     ftstamp=str(
-                                                                                         data[i][2]) + " " + str(
-                                                                                         data[i][3])))
+            print("Capacity: {:.0f}%, Time: {:.1f} min, Timestamp: {ftstamp}".format(data[i][0], data[i][1], ftstamp=str(data[i][2]) + " " + str(data[i][3])))
 
             if data[i][0] < 1:
                 break

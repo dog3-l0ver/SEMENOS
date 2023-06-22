@@ -1,4 +1,4 @@
-# Battery model: Molicel P26A 18650
+# Battery model: 2x Molicel P26A 18650 in series
 
 
 class BatteryVar:
@@ -6,12 +6,13 @@ class BatteryVar:
         # Battery parameters
         self.capacity = 2600  # mAh
         self.remainingpower = 2600  # mAh
-        self.voltage = 3.7  # V
-        self.resistance = 0.02  # Ohm
+        self.base_voltage = 7.4  # V
+        self.resistance = 0.4  # Ohm
 
         # Discharge parameters
-        self.current = 2500  # Ah
+        self.current = 150  # mA
         self.dt = 1  # s
+        self.voltage = 7.4  # V
 
     # Getters
     def getcapacity(self):
@@ -19,6 +20,9 @@ class BatteryVar:
 
     def getremainingpower(self):
         return self.remainingpower
+
+    def get_base_voltage(self):
+        return self.base_voltage
 
     def getvoltage(self):
         return self.voltage
