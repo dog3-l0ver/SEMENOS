@@ -1,2 +1,5 @@
+from controller import *
+
 if __name__ == '__main__':
-    print('')
+    control = Controller()
+    control.thread_management()
