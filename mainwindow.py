@@ -35,9 +35,14 @@ class MainWindow(QMainWindow):
     mode = 1
     volts = 0
     watts = 0
+    current = 0
     resistance = 0
     temperature = 0
+    puff_time = 0
+    safety_lock = False
     count = False
+    id = 1
+    i = id
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -65,6 +70,9 @@ class MainWindow(QMainWindow):
         self.ui.vapagotchi_button.clicked.connect(self.go_to_vapagotchi)
         self.ui.back_button.clicked.connect(self.go_to_home)
 
+        self.ui.previous_button.clicked.connect(self.previous_stats)
+        self.ui.next_button.clicked.connect(self.next_stats)
+
         self.ui.pink_theme_button.clicked.connect(self.set_theme_pink)
         self.ui.blue_theme_button.clicked.connect(self.set_theme_blue)
         self.ui.green_theme_button.clicked.connect(self.set_theme_green)
@@ -87,8 +95,6 @@ class MainWindow(QMainWindow):
         self.battery_thread.start()
         self.capacity_thread = threading.Thread(target=self.get_capacity)
         self.capacity_thread.start()
-        self.coil_thread = threading.Thread(target=self.coil.fire, args=(self.watts,))
-        self.timer_thread = threading.Thread(target=self.timer)
 
     def thread_kill(self):
         self.is_running = False
@@ -101,15 +107,14 @@ class MainWindow(QMainWindow):
             self.puff_end = time()
             self.puff_time = self.puff_end - self.puff_start
             self.ui.time_display.setText(str(float('%.2f' % (self.puff_time))) + "s")
+            if self.puff_time > 10:
+                self.fire_stop()
 
     def go_to_menu(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.menu)
 
     def go_to_home(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.home)
-
-    def go_to_stats(self):
-        self.ui.stackedWidget.setCurrentWidget(self.ui.stats)
 
     def go_to_themes(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.themes)
@@ -124,9 +129,19 @@ class MainWindow(QMainWindow):
                     self.watts = int(self.ui.watts_display.toPlainText())
                     self.resistance = float(self.ui.ohms_display.toPlainText())
                     self.volts = math.sqrt(self.watts * self.resistance)
-                    self.ui.volts_display.setText(str(float('%.2f' % (self.volts))))
-                    self.timer_thread.start()
-                    self.coil_thread.start()
+                    self.current = (self.watts / self.volts) * 100
+                    if self.volts <= self.battery.bat.getvoltage() and self.current <= 3500:
+                        self.ui.volts_display.setText(str(float('%.2f' % (self.volts))))
+                        self.timer_thread = threading.Thread(target=self.timer)
+                        self.timer_thread.start()
+                        self.coil_thread = threading.Thread(target=self.coil.fire, args=(self.watts,))
+                        self.coil_thread.start()
+                        self.battery.bat.request_current(self.current)
+
+                    else:
+                        self.safety_lock = True
+
+
                 except:
                     pass
 
@@ -135,9 +150,18 @@ class MainWindow(QMainWindow):
                     self.volts = float(self.ui.watts_display.toPlainText())
                     self.resistance = float(self.ui.ohms_display.toPlainText())
                     self.watts = int((self.volts * self.volts)/self.resistance)
-                    self.ui.watts_display.setText(str(self.watts))
-                    self.timer_thread.start()
-                    self.coil_thread.start()
+                    self.current = (self.watts / self.volts) * 100
+                    if self.volts <= self.battery.bat.getvoltage() and self.current <= 3500:
+                        self.ui.volts_display.setText(str(self.watts))
+                        self.timer_thread = threading.Thread(target=self.timer)
+                        self.timer_thread.start()
+                        self.coil_thread = threading.Thread(target=self.coil.fire, args=(self.watts,))
+                        self.coil_thread.start()
+                        self.battery.bat.request_current(self.current)
+
+                    else:
+                        self.safety_lock = True
+
                 except:
                     pass
 
@@ -145,8 +169,9 @@ class MainWindow(QMainWindow):
                 pass
 
     def fire_stop(self):
-        self.coil.set_status_false()
+        self.coil.set_status()
         self.count = False
+        self.battery.bat.request_current(0)
         match self.mode:
             case 1:
                 self.ui.volts_display.setText("0.00")
@@ -156,6 +181,11 @@ class MainWindow(QMainWindow):
 
             case 3:
                 pass
+
+        if not self.safety_lock:
+            self.db.insert_current_puff((self.id, str(datetime.datetime.today()) + " " + str(datetime.datetime.now().strftime("%H:%M:%S")), self.volts, self.current, self.temperature, self.puff_time))
+            self.db.update_puffs(self.puff_time)
+            self.id += 1
 
     def set_mode(self):
         if(self.mode < 3):
@@ -177,41 +207,82 @@ class MainWindow(QMainWindow):
     def set_mode_vw(self):
         self.ui.mode_button.setText("Mode: VW")
         self.ui.watts_icon.setText("W")
-        self.ui.watts_diplay.setText("000")
-        self.ui.watts_diplay.setAlignment(Qt.AlignRight)
+        self.ui.watts_display.setText("000")
+        self.ui.watts_display.setAlignment(Qt.AlignRight)
         self.ui.volts_display.setText("0.00")
         self.ui.volts_display.setAlignment(Qt.AlignRight)
 
     def set_mode_vv(self):
         self.ui.mode_button.setText("Mode: VV")
         self.ui.watts_icon.setText("V")
-        self.ui.watts_diplay.setText("0.00")
-        self.ui.watts_diplay.setAlignment(Qt.AlignRight)
+        self.ui.watts_display.setText("0.00")
+        self.ui.watts_display.setAlignment(Qt.AlignRight)
         self.ui.volts_display.setText("000")
-        self.ui.watts_diplay.setAlignment(Qt.AlignRight)
+        self.ui.watts_display.setAlignment(Qt.AlignRight)
 
     def set_mode_tcr(self):
         self.ui.mode_button.setText("Mode: TCR")
         self.ui.watts_icon.setText("C")
-        self.ui.watts_diplay.setText("000")
-        self.ui.watts_diplay.setAlignment(Qt.AlignRight)
+        self.ui.watts_display.setText("000")
+        self.ui.watts_display.setAlignment(Qt.AlignRight)
         self.ui.volts_display.setText("000")
-        self.ui.watts_diplay.setAlignment(Qt.AlignRight)
+        self.ui.watts_display.setAlignment(Qt.AlignRight)
+
+    def previous_stats(self):
+        if self.i > 1:
+            self.i -= 1
+            current_puff = self.db.select_puff_by_id(self.i)
+            self.ui.puff_current_display.setText(str(float('%.2f' % (current_puff[3]/100)))+" A")
+            self.ui.puff_date_display.setText(str(current_puff[1]))
+            self.ui.puff_temp_display.setText(str(float('%.2f' % (current_puff[4])))+" C")
+            self.ui.puff_time_display.setText(str(float('%.2f' % (current_puff[5]))))
+            self.ui.puff_voltage_display.setText(str(float('%.2f' % (current_puff[2])))+"V ")
+            self.ui.stackedWidget.setCurrentWidget(self.ui.stats)
+
+    def next_stats(self):
+        if self.i < self.id:
+            self.i += 1
+            current_puff = self.db.select_puff_by_id(self.i)
+            self.ui.puff_current_display.setText(str(float('%.2f' % (current_puff[3]/100)))+" A")
+            self.ui.puff_date_display.setText(str(current_puff[1]))
+            self.ui.puff_temp_display.setText(str(float('%.2f' % (current_puff[4])))+" C")
+            self.ui.puff_time_display.setText(str(float('%.2f' % (current_puff[5]))))
+            self.ui.puff_voltage_display.setText(str(float('%.2f' % (current_puff[2])))+" V")
+            self.ui.stackedWidget.setCurrentWidget(self.ui.stats)
+
+    def go_to_stats(self):
+        current_puff = self.db.select_latest_puff()
+        all_puffs = self.db.select_puffs()
+        self.id = current_puff[0]
+        self.i = self.id
+        self.ui.puff_current_display.setText(str(float('%.2f' % (current_puff[3]/100)))+" A")
+        self.ui.puff_date_display.setText(str(current_puff[1]))
+        self.ui.puff_temp_display.setText(str(float('%.2f' % (current_puff[4])))+" C")
+        self.ui.puff_time_display.setText(str(float('%.2f' % (current_puff[5]))))
+        self.ui.puff_voltage_display.setText(str(float('%.2f' % (current_puff[2])))+" V")
+        self.ui.total_puffs_display.setText(str(all_puffs[2]))
+        self.ui.total_time_display.setText(str(current_puff[1]))
+        self.ui.stackedWidget.setCurrentWidget(self.ui.stats)
 
     def set_theme_pink(self):
         self.ui.theme_home.setStyleSheet(u"background-image: url(:/assets/home_pink.png);")
+        self.ui.theme_menu.setStyleSheet(u"background-image: url(:/assets/menu_pink.png);")
 
     def set_theme_blue(self):
         self.ui.theme_home.setStyleSheet(u"background-image: url(:/assets/home_blue.png);")
+        self.ui.theme_menu.setStyleSheet(u"background-image: url(:/assets/menu_blue.png);")
 
     def set_theme_green(self):
         self.ui.theme_home.setStyleSheet(u"background-image: url(:/assets/home_green.png);")
+        self.ui.theme_menu.setStyleSheet(u"background-image: url(:/assets/menu_green.png);")
 
     def set_theme_lavender(self):
         self.ui.theme_home.setStyleSheet(u"background-image: url(:/assets/home_lavender.png);")
+        self.ui.theme_menu.setStyleSheet(u"background-image: url(:/assets/menu_lavender.png);")
 
     def set_theme_red(self):
         self.ui.theme_home.setStyleSheet(u"background-image: url(:/assets/home_red.png);")
+        self.ui.theme_menu.setStyleSheet(u"background-image: url(:/assets/menu_red.png);")
 
 
 if __name__ == "__main__":

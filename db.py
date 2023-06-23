@@ -31,7 +31,7 @@ def create_table(conn, query):
 class DataBase:
     def __init__(self):
         self.latest = 1
-        self.id = 2
+        self.id = 1
         self.queries = Queries
         self.conn = connect(':memory:')
         if self.conn is not None:
@@ -49,6 +49,7 @@ class DataBase:
         c = self.conn.cursor()
         c.execute("SELECT MAX(id) from current_puff")
         max_id = c.fetchone()
+        c.close()
         return max_id[0]
 
     def set_latest_puffs(self):
@@ -58,6 +59,7 @@ class DataBase:
         c = self.conn.cursor()
         c.execute("SELECT MAX(id) from puffs")
         max_id = c.fetchone()
+        c.close()
         return max_id[0]
 
     def insert_current_puff(self, query):

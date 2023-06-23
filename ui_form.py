@@ -408,7 +408,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
         self.fire_button.setDefault(True)
         self.menu_button.setDefault(True)
         self.mode_button.setDefault(True)

@@ -4,17 +4,21 @@
 class BatteryVar:
     def __init__(self):
         # Battery parameters
-        self.capacity = 2600  # mAh
+        self.capacity = 2600        # mAh
         self.remainingpower = 2600  # mAh
-        self.base_voltage = 7.4  # V
-        self.resistance = 0.4  # Ohm
+        self.base_voltage = 7.4     # V
+        self.resistance = 0.4       # Ohm
 
         # Discharge parameters
-        self.current = 150  # mA
-        self.voltage = 7.4  # V
+        self.current = 150          # mA
+        self.requested_current = 0  # mA
+        self.voltage = 7.4          # V
         self.is_running = True
 
     # Getters
+    def get_requested_current(self):
+        return self.requested_current
+
     def getcapacity(self):
         return self.capacity
 
@@ -37,6 +41,9 @@ class BatteryVar:
         return self.is_running
 
     # Setters
+    def request_current(self, requested_current):
+        self.requested_current = requested_current
+
     def setcapacity(self, capacity):
         self.capacity = capacity
 

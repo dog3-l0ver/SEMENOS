@@ -14,7 +14,7 @@ class Battery:
             self.bat.setvoltage(self.bat.get_base_voltage() * ((self.bat.getremainingpower() + (5 * self.bat.getcapacity())) / (self.bat.getcapacity() * 6)))
 
             # Calculate the energy discharged in this time step
-            energy = self.bat.getresistance() * self.bat.getcurrent() * self.bat.getvoltage() / 3600
+            energy = self.bat.getresistance() * (self.bat.getcurrent() + self.bat.get_requested_current()) * self.bat.getvoltage() / 3600
 
             # Update the remaining capacity of the battery
             self.bat.setremainingpower(self.bat.getremainingpower() - energy)
