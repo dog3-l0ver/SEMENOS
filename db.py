@@ -31,12 +31,34 @@ def create_table(conn, query):
 class DataBase:
     def __init__(self):
         self.latest = 1
-        self.id = 1
+        self.id = 2
         self.queries = Queries
         self.conn = connect(':memory:')
         if self.conn is not None:
             create_table(self.conn, self.queries.CurrentPuffTableCreator)
             create_table(self.conn, self.queries.PuffsTableCreator)
+            cursor = self.conn.cursor()
+            cursor.execute("INSERT INTO puffs(id, time_sum, puff_count) VALUES (1,0,0)")
+            self.conn.commit()
+            cursor.close()
+
+    def set_latest_current_puff(self):
+        """set latest index for current_puff
+        :param:
+        :return:"""
+        c = self.conn.cursor()
+        c.execute("SELECT MAX(id) from current_puff")
+        max_id = c.fetchone()
+        return max_id[0]
+
+    def set_latest_puffs(self):
+        """set latest index for puffs
+        :param:
+        :return:"""
+        c = self.conn.cursor()
+        c.execute("SELECT MAX(id) from puffs")
+        max_id = c.fetchone()
+        return max_id[0]
 
     def insert_current_puff(self, query):
         """insert data related to current puff
@@ -53,10 +75,9 @@ class DataBase:
         :param time: length of current puff, floating point number
         :return:"""
         c = self.conn.cursor()
-        c.execute("SELECT time_sum, puff_count FROM puffs WHERE id=?", (self.id, ))
-        data = c.fetchone()
-        actual_time = data[0] + time
-        actual_puff_count = data[1] + 1
+        data = self.select_puffs()
+        actual_time = data[1] + time
+        actual_puff_count = data[2] + 1
         sql = '''INSERT INTO puffs(id, time_sum, puff_count) VALUES(?,?,?)'''
         c.execute(sql, (self.id, actual_time, actual_puff_count))
         self.conn.commit()
@@ -68,8 +89,8 @@ class DataBase:
         :param:
         :return query: list containing all data related to the latest puff"""
         c = self.conn.cursor()
-        self.latest = c.lastrowid
-        c.execute("SELECT * FROM current_puff WHERE id=?", (self.latest,))
+        latest = self.set_latest_current_puff()
+        c.execute("SELECT * FROM current_puff WHERE id=?", (latest,))
         query = c.fetchone()
         c.close()
         return query
@@ -82,7 +103,7 @@ class DataBase:
         if ident <= self.latest:
             c.execute("SELECT * FROM current_puff WHERE id=?", (ident,))
         else:
-            c.execute("SELECT * FROM current_puff WHERE id=?", (self.latest, ))
+            c.execute("SELECT * FROM current_puff WHERE id=?", (self.latest,))
         query = c.fetchone()
         c.close()
         return query
@@ -92,7 +113,7 @@ class DataBase:
         :param:
         :return query: list containing data related to information about all puffs"""
         c = self.conn.cursor()
-        last = c.lastrowid
+        last = self.set_latest_puffs()
         c.execute("SELECT * FROM puffs WHERE id=?", (last,))
         query = c.fetchone()
         c.close()
