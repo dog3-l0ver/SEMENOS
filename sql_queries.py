@@ -1,20 +1,15 @@
 class Queries:
-    BatteryTableCreator = """CREATE TABLE IF NOT EXISTS battery(
+    CurrentPuffTableCreator = """CREATE TABLE IF NOT EXISTS current_puff(
                                 id integer PRIMARY_KEY,
-                                model text NOT NULL,
-                                remaining_power integer NOT NULL,
-                                timestamp text NOT NULL
+                                date text NOT NULL,
+                                voltage real NOT NULL,
+                                current real NOT NULL,
+                                temperature real NOT NULL,
+                                puff_length real NOT NULL
                             )"""
 
-    CoilTableCreator = """CREATE TABLE IF NOT EXISTS coil(
-                            id integer PRIMARY_KEY,
-                            model text NOT NULL
-                        )"""
-
-    PuffTableCreator = """CREATE TABLE IF NOT EXISTS puff(
-                            id integer PRIMARY_KEY,
-                            timestamp text NOT NULL,
-                            puff_time real NOT NULL,
-                            current_power real NOT NULL,
-                            current_resistance real NOT NULL
-                        )"""
+    PuffsTableCreator = """CREATE TABLE IF NOT EXISTS puffs(
+                                    id integer PRIMARY_KEY,
+                                    time_sum real NOT NULL,
+                                    puff_count integer NOT NULL
+                                )"""
