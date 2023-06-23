@@ -11,8 +11,8 @@ class BatteryVar:
 
         # Discharge parameters
         self.current = 150  # mA
-        self.dt = 1  # s
         self.voltage = 7.4  # V
+        self.is_running = True
 
     # Getters
     def getcapacity(self):
@@ -33,8 +33,8 @@ class BatteryVar:
     def getcurrent(self):
         return self.current
 
-    def getdt(self):
-        return self.dt
+    def get_status(self):
+        return self.is_running
 
     # Setters
     def setcapacity(self, capacity):
@@ -52,11 +52,5 @@ class BatteryVar:
     def setcurrent(self, current):
         self.current = current
 
-    def setdt(self, dt):
-        self.dt = dt
-
-    def is_fire(self, isFire, curr):
-        if isFire:
-            self.setcurrent(500 + curr)
-        else:
-            self.setcurrent(500)
+    def set_status(self):
+        self.is_running = False
