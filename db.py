@@ -30,7 +30,6 @@ def create_table(conn, query):
 
 class DataBase:
     def __init__(self):
-        self.latest = 1
         self.id = 1
         self.queries = Queries
         self.conn = connect(':memory:')
@@ -102,10 +101,7 @@ class DataBase:
         :param ident: used as a flag to prevent the user from inserting index that's out of bounds
         :return query: list containing all data related to the puff chosen by the user"""
         c = self.conn.cursor()
-        if ident <= self.latest:
-            c.execute("SELECT * FROM current_puff WHERE id=?", (ident,))
-        else:
-            c.execute("SELECT * FROM current_puff WHERE id=?", (self.latest,))
+        c.execute("SELECT * FROM current_puff WHERE id=?", (ident,))
         query = c.fetchone()
         c.close()
         return query

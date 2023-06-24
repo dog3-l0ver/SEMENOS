@@ -43,6 +43,7 @@ class MainWindow(QMainWindow):
     count = False
     id = 1
     i = id
+    all_puffs = []
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -183,8 +184,10 @@ class MainWindow(QMainWindow):
                 pass
 
         if not self.safety_lock:
-            self.db.insert_current_puff((self.id, str(datetime.datetime.today()) + " " + str(datetime.datetime.now().strftime("%H:%M:%S")), self.volts, self.current, self.temperature, self.puff_time))
+            self.db.insert_current_puff((self.id, str(datetime.datetime.today().replace(microsecond=0)), self.volts, self.current, self.temperature, self.puff_time))
             self.db.update_puffs(self.puff_time)
+            self.all_puffs = self.db.select_puffs()
+            self.ui.puffs_display.setText(str(self.all_puffs[2]).zfill(6))
             self.id += 1
 
     def set_mode(self):
@@ -232,36 +235,33 @@ class MainWindow(QMainWindow):
         if self.i > 1:
             self.i -= 1
             current_puff = self.db.select_puff_by_id(self.i)
-            self.ui.puff_current_display.setText(str(float('%.2f' % (current_puff[3]/100)))+" A")
+            self.ui.puff_current_display.setText(str(float('%.2f' % (current_puff[3]/100))) + " A")
             self.ui.puff_date_display.setText(str(current_puff[1]))
-            self.ui.puff_temp_display.setText(str(float('%.2f' % (current_puff[4])))+" C")
-            self.ui.puff_time_display.setText(str(float('%.2f' % (current_puff[5]))))
-            self.ui.puff_voltage_display.setText(str(float('%.2f' % (current_puff[2])))+"V ")
-            self.ui.stackedWidget.setCurrentWidget(self.ui.stats)
+            self.ui.puff_temp_display.setText(str(float('%.2f' % (current_puff[4]))) + " C")
+            self.ui.puff_time_display.setText(str(float('%.2f' % (current_puff[5]))) + " s")
+            self.ui.puff_voltage_display.setText(str(float('%.2f' % (current_puff[2]))) + " V")
 
     def next_stats(self):
         if self.i < self.id:
             self.i += 1
             current_puff = self.db.select_puff_by_id(self.i)
-            self.ui.puff_current_display.setText(str(float('%.2f' % (current_puff[3]/100)))+" A")
+            self.ui.puff_current_display.setText(str(float('%.2f' % (current_puff[3]/100))) + " A")
             self.ui.puff_date_display.setText(str(current_puff[1]))
-            self.ui.puff_temp_display.setText(str(float('%.2f' % (current_puff[4])))+" C")
-            self.ui.puff_time_display.setText(str(float('%.2f' % (current_puff[5]))))
-            self.ui.puff_voltage_display.setText(str(float('%.2f' % (current_puff[2])))+" V")
-            self.ui.stackedWidget.setCurrentWidget(self.ui.stats)
+            self.ui.puff_temp_display.setText(str(float('%.2f' % (current_puff[4]))) + " C")
+            self.ui.puff_time_display.setText(str(float('%.2f' % (current_puff[5]))) + " s")
+            self.ui.puff_voltage_display.setText(str(float('%.2f' % (current_puff[2]))) + " V")
 
     def go_to_stats(self):
         current_puff = self.db.select_latest_puff()
-        all_puffs = self.db.select_puffs()
         self.id = current_puff[0]
         self.i = self.id
-        self.ui.puff_current_display.setText(str(float('%.2f' % (current_puff[3]/100)))+" A")
+        self.ui.puff_current_display.setText(str(float('%.2f' % (current_puff[3]/100))) + " A")
         self.ui.puff_date_display.setText(str(current_puff[1]))
-        self.ui.puff_temp_display.setText(str(float('%.2f' % (current_puff[4])))+" C")
-        self.ui.puff_time_display.setText(str(float('%.2f' % (current_puff[5]))))
-        self.ui.puff_voltage_display.setText(str(float('%.2f' % (current_puff[2])))+" V")
-        self.ui.total_puffs_display.setText(str(all_puffs[2]))
-        self.ui.total_time_display.setText(str(current_puff[1]))
+        self.ui.puff_temp_display.setText(str(float('%.2f' % (current_puff[4]))) + " C")
+        self.ui.puff_time_display.setText(str(float('%.2f' % (current_puff[5]))) + " s")
+        self.ui.puff_voltage_display.setText(str(float('%.2f' % (current_puff[2]))) + " V")
+        self.ui.total_puffs_display.setText(str(self.all_puffs[2]))
+        self.ui.total_time_display.setText(str(float('%.2f' % (self.all_puffs[1]))) + " s")
         self.ui.stackedWidget.setCurrentWidget(self.ui.stats)
 
     def set_theme_pink(self):
