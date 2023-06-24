@@ -49,7 +49,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="home">
      <widget class="QFrame" name="theme_home">
@@ -95,7 +95,8 @@
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">image: url(:/assets/logo.png);</string>
+        <string notr="true">image: url(:/assets/logo.png);
+color: white;</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::NoFrame</enum>
@@ -117,7 +118,8 @@
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 60pt &quot;Motorola ScreenType&quot;;</string>
+        <string notr="true">font: 60pt &quot;Motorola ScreenType&quot;;
+color: white;</string>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Plain</enum>
@@ -142,7 +144,8 @@
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 50pt &quot;M20_SP-RANKER&quot;;</string>
+        <string notr="true">font: 50pt &quot;M20_SP-RANKER&quot;;
+color: white;</string>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Plain</enum>
@@ -175,7 +178,8 @@
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Dogica Pixel&quot;;</string>
+        <string notr="true">font: 20pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Plain</enum>
@@ -208,7 +212,8 @@
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 40pt &quot;Retro Gaming&quot;;</string>
+        <string notr="true">font: 40pt &quot;Retro Gaming&quot;;
+color: white;</string>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Plain</enum>
@@ -241,7 +246,8 @@
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 50pt &quot;Retro Gaming&quot;;</string>
+        <string notr="true">font: 50pt &quot;Retro Gaming&quot;;
+color: white;</string>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Plain</enum>
@@ -274,7 +280,8 @@
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Dogica Pixel&quot;;</string>
+        <string notr="true">font: 20pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Plain</enum>
@@ -307,7 +314,8 @@
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Dogica Pixel&quot;;</string>
+        <string notr="true">font: 20pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Plain</enum>
@@ -329,7 +337,8 @@
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 16pt &quot;Dogica Pixel&quot;;</string>
+        <string notr="true">font: 16pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>FIRE</string>
@@ -357,7 +366,8 @@
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 16pt &quot;Dogica Pixel&quot;;</string>
+        <string notr="true">font: 16pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>MENU</string>
@@ -405,7 +415,8 @@
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 85pt &quot;M20_SP-RANKER&quot;;</string>
+        <string notr="true">font: 85pt &quot;M20_SP-RANKER&quot;;
+color: white;</string>
        </property>
        <property name="inputMethodHints">
         <set>Qt::ImhNone</set>
@@ -473,7 +484,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 60pt &quot;Motorola ScreenType&quot;;</string>
+        <string notr="true">font: 60pt &quot;Motorola ScreenType&quot;;
+color: white;</string>
        </property>
        <property name="inputMethodHints">
         <set>Qt::ImhNone</set>
@@ -557,7 +569,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
        </property>
        <property name="styleSheet">
         <string notr="true">background-image: url(:/assets/background.png);
-font: 700 25pt &quot;Dogica Pixel&quot;;</string>
+font: 700 25pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>Mode: VW</string>
@@ -586,7 +599,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-image: url(:/assets/background.png);
-font: 700 25pt &quot;Dogica Pixel&quot;;</string>
+font: 700 25pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>Themes</string>
@@ -615,7 +629,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-image: url(:/assets/background.png);
-font: 700 25pt &quot;Dogica Pixel&quot;;</string>
+font: 700 25pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>Stats</string>
@@ -644,7 +659,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-image: url(:/assets/background.png);
-font: 700 25pt &quot;Dogica Pixel&quot;;</string>
+font: 700 25pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>Vapagotchi</string>
@@ -673,7 +689,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-image: url(:/assets/background.png);
-font: 700 25pt &quot;Dogica Pixel&quot;;</string>
+font: 700 25pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>BACK</string>
@@ -722,7 +739,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;</string>
+        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>Total Puffs:</string>
@@ -741,7 +759,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;</string>
+        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>0</string>
@@ -760,7 +779,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;</string>
+        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>Total Time:</string>
@@ -779,7 +799,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;</string>
+        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>0s</string>
@@ -798,7 +819,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;</string>
+        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>Puff:</string>
@@ -817,7 +839,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;</string>
+        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>00:00:00 00-00-000</string>
@@ -837,7 +860,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-image: url(:/assets/background.png);
-font: 700 25pt &quot;Dogica Pixel&quot;;</string>
+font: 700 25pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>BACK</string>
@@ -866,7 +890,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-image: url(:/assets/background.png);
-font: 700 15pt &quot;Dogica Pixel&quot;;</string>
+font: 700 15pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>&lt;=</string>
@@ -895,7 +920,8 @@ font: 700 15pt &quot;Dogica Pixel&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-image: url(:/assets/background.png);
-font: 700 15pt &quot;Dogica Pixel&quot;;</string>
+font: 700 15pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>=&gt;</string>
@@ -923,7 +949,8 @@ font: 700 15pt &quot;Dogica Pixel&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;</string>
+        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>Time:</string>
@@ -942,7 +969,8 @@ font: 700 15pt &quot;Dogica Pixel&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;</string>
+        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>0s</string>
@@ -961,7 +989,8 @@ font: 700 15pt &quot;Dogica Pixel&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;</string>
+        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>Peek Voltage:</string>
@@ -980,7 +1009,8 @@ font: 700 15pt &quot;Dogica Pixel&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;</string>
+        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>0 V</string>
@@ -999,7 +1029,8 @@ font: 700 15pt &quot;Dogica Pixel&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;</string>
+        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>Peek Current:</string>
@@ -1018,7 +1049,8 @@ font: 700 15pt &quot;Dogica Pixel&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;</string>
+        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>0 A</string>
@@ -1037,7 +1069,8 @@ font: 700 15pt &quot;Dogica Pixel&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;</string>
+        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>Peek Temp:</string>
@@ -1056,7 +1089,8 @@ font: 700 15pt &quot;Dogica Pixel&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;</string>
+        <string notr="true">font: 20pt &quot;Retro Gaming&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>0 C</string>
@@ -1097,7 +1131,8 @@ font: 700 15pt &quot;Dogica Pixel&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-image: url(:/assets/background.png);
-font: 700 25pt &quot;Dogica Pixel&quot;;</string>
+font: 700 25pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>BACK</string>
@@ -1147,7 +1182,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-image: url(:/assets/background.png);
-font: 700 25pt &quot;Dogica Pixel&quot;;</string>
+font: 700 25pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>BACK</string>
@@ -1176,7 +1212,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-image: url(:/assets/background.png);
-font: 700 25pt &quot;Dogica Pixel&quot;;</string>
+font: 700 25pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>Pink</string>
@@ -1205,7 +1242,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-image: url(:/assets/background.png);
-font: 700 25pt &quot;Dogica Pixel&quot;;</string>
+font: 700 25pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>Blue</string>
@@ -1234,7 +1272,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-image: url(:/assets/background.png);
-font: 700 25pt &quot;Dogica Pixel&quot;;</string>
+font: 700 25pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>Green</string>
@@ -1263,7 +1302,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-image: url(:/assets/background.png);
-font: 700 25pt &quot;Dogica Pixel&quot;;</string>
+font: 700 25pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>Red</string>
@@ -1292,7 +1332,8 @@ font: 700 25pt &quot;Dogica Pixel&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-image: url(:/assets/background.png);
-font: 700 25pt &quot;Dogica Pixel&quot;;</string>
+font: 700 25pt &quot;Dogica Pixel&quot;;
+color: white;</string>
        </property>
        <property name="text">
         <string>Lavender</string>
