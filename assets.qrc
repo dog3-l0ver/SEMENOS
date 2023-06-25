@@ -15,5 +15,8 @@
         <file>assets/menu_red.png</file>
         <file>assets/menu_lavender.png</file>
         <file>assets/menu_green.png</file>
+        <file>assets/level1.png</file>
+        <file>assets/level2.png</file>
+        <file>assets/level3.png</file>
     </qresource>
 </RCC>
