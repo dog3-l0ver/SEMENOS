@@ -387,6 +387,26 @@ class Ui_MainWindow(object):
 "color: white;")
         self.back_vapagotchi.setIconSize(QSize(0, 0))
         self.back_vapagotchi.setFlat(True)
+        self.level_display = QLabel(self.theme_vapagotchi)
+        self.level_display.setObjectName(u"level_display")
+        self.level_display.setGeometry(QRect(0, 30, 361, 41))
+        font5 = QFont()
+        font5.setFamilies([u"Retro Gaming"])
+        font5.setPointSize(35)
+        font5.setBold(False)
+        font5.setItalic(False)
+        self.level_display.setFont(font5)
+        self.level_display.setAutoFillBackground(False)
+        self.level_display.setStyleSheet(u"font: 35pt \"Retro Gaming\";\n"
+"color: white;")
+        self.level_display.setFrameShadow(QFrame.Plain)
+        self.level_display.setAlignment(Qt.AlignCenter)
+        self.cloudy = QFrame(self.theme_vapagotchi)
+        self.cloudy.setObjectName(u"cloudy")
+        self.cloudy.setGeometry(QRect(0, 180, 361, 301))
+        self.cloudy.setStyleSheet(u"image: url(:/assets/level1.png);")
+        self.cloudy.setFrameShape(QFrame.NoFrame)
+        self.cloudy.setFrameShadow(QFrame.Plain)
         self.stackedWidget.addWidget(self.vapagotchi)
         self.themes = QWidget()
         self.themes.setObjectName(u"themes")
@@ -449,7 +469,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(3)
         self.fire_button.setDefault(True)
         self.menu_button.setDefault(True)
         self.mode_button.setDefault(True)
@@ -490,7 +510,7 @@ class Ui_MainWindow(object):
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'M20_SP-RANKER'; font-size:85pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"right\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">000</p></body></html>", None))
+"<p align=\"right\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">120</p></body></html>", None))
         self.ohms_display.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -522,6 +542,7 @@ class Ui_MainWindow(object):
         self.puff_temp_label.setText(QCoreApplication.translate("MainWindow", u"Peek Temp:", None))
         self.puff_temp_display.setText(QCoreApplication.translate("MainWindow", u"0 C", None))
         self.back_vapagotchi.setText(QCoreApplication.translate("MainWindow", u"BACK", None))
+        self.level_display.setText(QCoreApplication.translate("MainWindow", u"Level: 0/10", None))
         self.back_themes.setText(QCoreApplication.translate("MainWindow", u"BACK", None))
         self.pink_theme_button.setText(QCoreApplication.translate("MainWindow", u"Pink", None))
         self.blue_theme_button.setText(QCoreApplication.translate("MainWindow", u"Blue", None))

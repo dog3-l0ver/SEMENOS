@@ -32,6 +32,7 @@ class Controller:
 
 
 class MainWindow(QMainWindow):
+    date = ''
     mode = 1
     volts = 0
     watts = 0
@@ -40,6 +41,7 @@ class MainWindow(QMainWindow):
     temperature = 0
     puff_time = 0
     safety_lock = False
+    safety_stop = False
     count = False
     id = 1
     i = id
@@ -100,6 +102,7 @@ class MainWindow(QMainWindow):
     def thread_kill(self):
         self.is_running = False
         self.battery.bat.set_status()
+        self.db.close_connection()
 
     def timer(self):
         self.puff_start = time()
@@ -109,7 +112,7 @@ class MainWindow(QMainWindow):
             self.puff_time = self.puff_end - self.puff_start
             self.ui.time_display.setText(str(float('%.2f' % (self.puff_time))) + "s")
             if self.puff_time > 10:
-                self.fire_stop()
+                self.force_stop()
 
     def go_to_menu(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.menu)
@@ -121,9 +124,20 @@ class MainWindow(QMainWindow):
         self.ui.stackedWidget.setCurrentWidget(self.ui.themes)
 
     def go_to_vapagotchi(self):
+        level = self.db.total_puffs
+        if level < 25:
+            self.ui.level_display.setText("Level: " + str(level) + "/25")
+        elif level < 50:
+            self.ui.level_display.setText("Level: " + str(level) + "/50")
+            self.ui.cloudy.setStyleSheet(u"image: url(:/assets/level2.png);")
+        else:
+            self.ui.level_display.setText("Level: MAX")
+            self.ui.cloudy.setStyleSheet(u"image: url(:/assets/level3.png);")
         self.ui.stackedWidget.setCurrentWidget(self.ui.vapagotchi)
 
     def fire_start(self):
+        self.safety_lock = False
+        self.safety_stop = False
         match self.mode:
             case 1:
                 try:
@@ -173,6 +187,7 @@ class MainWindow(QMainWindow):
         self.coil.set_status()
         self.count = False
         self.battery.bat.request_current(0)
+        self.temperature = self.coil.get_temp()
         match self.mode:
             case 1:
                 self.ui.volts_display.setText("0.00")
@@ -184,11 +199,19 @@ class MainWindow(QMainWindow):
                 pass
 
         if not self.safety_lock:
-            self.db.insert_current_puff((self.id, str(datetime.datetime.today().replace(microsecond=0)), self.volts, self.current, self.temperature, self.puff_time))
-            self.db.update_puffs(self.puff_time)
-            self.all_puffs = self.db.select_puffs()
-            self.ui.puffs_display.setText(str(self.all_puffs[2]).zfill(6))
+            if self.safety_stop == False:
+                self.date = str(datetime.datetime.today().replace(microsecond=0))
+            self.db.insert_current_puff((self.id, self.date, self.volts, self.current, self.temperature, self.puff_time))
+            self.ui.puffs_display.setText(str(self.db.total_puffs).zfill(6))
             self.id += 1
+
+    def force_stop(self):
+        self.coil.set_status()
+        self.count = False
+        self.battery.bat.request_current(0)
+        self.safety_stop = True
+        self.date = str(datetime.datetime.today().replace(microsecond=0))
+
 
     def set_mode(self):
         if(self.mode < 3):
@@ -260,8 +283,8 @@ class MainWindow(QMainWindow):
         self.ui.puff_temp_display.setText(str(float('%.2f' % (current_puff[4]))) + " C")
         self.ui.puff_time_display.setText(str(float('%.2f' % (current_puff[5]))) + " s")
         self.ui.puff_voltage_display.setText(str(float('%.2f' % (current_puff[2]))) + " V")
-        self.ui.total_puffs_display.setText(str(self.all_puffs[2]))
-        self.ui.total_time_display.setText(str(float('%.2f' % (self.all_puffs[1]))) + " s")
+        self.ui.total_puffs_display.setText(str(self.db.total_puffs))
+        self.ui.total_time_display.setText(str(float('%.2f' % self.db.total_time)) + " s")
         self.ui.stackedWidget.setCurrentWidget(self.ui.stats)
 
     def set_theme_pink(self):
