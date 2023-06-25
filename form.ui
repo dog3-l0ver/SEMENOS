@@ -49,7 +49,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="home">
      <widget class="QFrame" name="theme_home">
@@ -993,7 +993,7 @@ color: white;</string>
 color: white;</string>
        </property>
        <property name="text">
-        <string>Peek Voltage:</string>
+        <string>Peak Voltage:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1033,7 +1033,7 @@ color: white;</string>
 color: white;</string>
        </property>
        <property name="text">
-        <string>Peek Current:</string>
+        <string>Peak Current:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1073,7 +1073,7 @@ color: white;</string>
 color: white;</string>
        </property>
        <property name="text">
-        <string>Peek Temp:</string>
+        <string>Peak Temp:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

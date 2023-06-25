@@ -469,7 +469,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(2)
         self.fire_button.setDefault(True)
         self.menu_button.setDefault(True)
         self.mode_button.setDefault(True)
@@ -535,11 +535,11 @@ class Ui_MainWindow(object):
         self.next_button.setText(QCoreApplication.translate("MainWindow", u"=>", None))
         self.puff_time_label.setText(QCoreApplication.translate("MainWindow", u"Time:", None))
         self.puff_time_display.setText(QCoreApplication.translate("MainWindow", u"0s", None))
-        self.puff_voltage_label.setText(QCoreApplication.translate("MainWindow", u"Peek Voltage:", None))
+        self.puff_voltage_label.setText(QCoreApplication.translate("MainWindow", u"Peak Voltage:", None))
         self.puff_voltage_display.setText(QCoreApplication.translate("MainWindow", u"0 V", None))
-        self.puff_current_label.setText(QCoreApplication.translate("MainWindow", u"Peek Current:", None))
+        self.puff_current_label.setText(QCoreApplication.translate("MainWindow", u"Peak Current:", None))
         self.puff_current_display.setText(QCoreApplication.translate("MainWindow", u"0 A", None))
-        self.puff_temp_label.setText(QCoreApplication.translate("MainWindow", u"Peek Temp:", None))
+        self.puff_temp_label.setText(QCoreApplication.translate("MainWindow", u"Peak Temp:", None))
         self.puff_temp_display.setText(QCoreApplication.translate("MainWindow", u"0 C", None))
         self.back_vapagotchi.setText(QCoreApplication.translate("MainWindow", u"BACK", None))
         self.level_display.setText(QCoreApplication.translate("MainWindow", u"Level: 0/10", None))
