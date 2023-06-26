@@ -148,6 +148,7 @@ class MainWindow(QMainWindow):
         match self.mode:
             case 1:
                 try:
+                    self.db.total_puffs += 1
                     self.watts = int(self.ui.watts_display.toPlainText())
                     self.resistance = float(self.ui.ohms_display.toPlainText())
                     self.volts = math.sqrt(self.watts * self.resistance)
@@ -169,6 +170,7 @@ class MainWindow(QMainWindow):
 
             case 2:
                 try:
+                    self.db.total_puffs += 1
                     self.volts = float(self.ui.watts_display.toPlainText())
                     self.resistance = float(self.ui.ohms_display.toPlainText())
                     self.watts = int((self.volts * self.volts)/self.resistance)
@@ -210,6 +212,7 @@ class MainWindow(QMainWindow):
             if self.safety_stop == False:
                 self.date = str(datetime.datetime.today().replace(microsecond=0))
             self.db.insert_current_puff((self.id, self.date, self.volts, self.current, self.temperature, self.puff_time))
+            self.db.total_time += self.puff_time
             self.ui.puffs_display.setText(str(self.db.total_puffs).zfill(6))
             self.id += 1
 
