@@ -18,7 +18,7 @@ import math
 import datetime
 import threading
 
-
+# Define simulated battery controller
 class Controller:
     def __init__(self):
         self.battery = Battery()
@@ -30,8 +30,9 @@ class Controller:
         self.battery.bat.setcurrent(self.battery.bat.getcurrent() + 3000)
         self.firstRun = [datetime.datetime.today(), datetime.datetime.now().strftime("%H:%M:%S")]
 
-
+# Main window Qt class
 class MainWindow(QMainWindow):
+    # Define needed variables
     date = ''
     mode = 1
     volts = 0
@@ -47,6 +48,7 @@ class MainWindow(QMainWindow):
     i = id
     all_puffs = []
 
+    # Update needed variables and bind UI buttons to functions
     def __init__(self, parent=None):
         super().__init__(parent)
         self.is_running = True
@@ -87,23 +89,26 @@ class MainWindow(QMainWindow):
 
         self.ui.back_vapagotchi.clicked.connect(self.go_to_menu)
 
+    # Get battery capacity left
     def get_capacity(self):
         while(self.is_running):
             battery_left = int(self.battery.bat.getremainingpower() / self.battery_cap * 100)
             self.ui.battery_display.setText(str(battery_left) + "%")
 
-
+    # Start the battery simulation thread and battery display thread
     def thread_start(self):
         self.battery_thread = threading.Thread(target=self.battery.simulation)
         self.battery_thread.start()
         self.capacity_thread = threading.Thread(target=self.get_capacity)
         self.capacity_thread.start()
 
+    # Kill running threads
     def thread_kill(self):
         self.is_running = False
         self.battery.bat.set_status()
         self.db.close_connection()
 
+    # Start puff time
     def timer(self):
         self.puff_start = time()
         self.count = True
@@ -114,6 +119,7 @@ class MainWindow(QMainWindow):
             if self.puff_time > 10:
                 self.force_stop()
 
+    # Menu functions
     def go_to_menu(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.menu)
 
@@ -135,6 +141,7 @@ class MainWindow(QMainWindow):
             self.ui.cloudy.setStyleSheet(u"image: url(:/assets/level3.png);")
         self.ui.stackedWidget.setCurrentWidget(self.ui.vapagotchi)
 
+    # Fire function. Run when the fire button is pressed
     def fire_start(self):
         self.safety_lock = False
         self.safety_stop = False
@@ -183,6 +190,7 @@ class MainWindow(QMainWindow):
             case 3:
                 pass
 
+    # Fire function. Run when the fire button is released
     def fire_stop(self):
         self.coil.set_status()
         self.count = False
@@ -205,6 +213,7 @@ class MainWindow(QMainWindow):
             self.ui.puffs_display.setText(str(self.db.total_puffs).zfill(6))
             self.id += 1
 
+    # Stops puff logic when timer exceeds 10s
     def force_stop(self):
         self.coil.set_status()
         self.count = False
@@ -212,7 +221,7 @@ class MainWindow(QMainWindow):
         self.safety_stop = True
         self.date = str(datetime.datetime.today().replace(microsecond=0))
 
-
+    # Vape mode selection
     def set_mode(self):
         if(self.mode < 3):
             self.mode += 1
@@ -254,6 +263,7 @@ class MainWindow(QMainWindow):
         self.ui.volts_display.setText("000")
         self.ui.watts_display.setAlignment(Qt.AlignRight)
 
+    # Stat menu logic
     def previous_stats(self):
         if self.i > 1:
             self.i -= 1
@@ -287,6 +297,7 @@ class MainWindow(QMainWindow):
         self.ui.total_time_display.setText(str(float('%.2f' % self.db.total_time)) + " s")
         self.ui.stackedWidget.setCurrentWidget(self.ui.stats)
 
+    # Theme menu logic
     def set_theme_pink(self):
         self.ui.theme_home.setStyleSheet(u"background-image: url(:/assets/home_pink.png);")
         self.ui.theme_menu.setStyleSheet(u"background-image: url(:/assets/menu_pink.png);")
@@ -307,7 +318,7 @@ class MainWindow(QMainWindow):
         self.ui.theme_home.setStyleSheet(u"background-image: url(:/assets/home_red.png);")
         self.ui.theme_menu.setStyleSheet(u"background-image: url(:/assets/menu_red.png);")
 
-
+# Starting the UI and waiting for it to close before exitting
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     widget = MainWindow()
